@@ -1,0 +1,21 @@
+//
+//  ActivityTableVIew.swift
+//  ToDo
+//
+//  Created by Kingsten Hausen on 08.01.18.
+//  Copyright © 2018 Kingsten Hausen. All rights reserved.
+//
+
+import UIKit
+
+class ActivityTableVIew: UITableView {
+
+    /*
+    // Only override draw() if you perform custom drawing.
+    // An empty implementation adversely affects performance during animation.
+    override func draw(_ rect: CGRect) {
+        // Drawing code
+    }
+    */
+
+}
