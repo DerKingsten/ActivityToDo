@@ -58,11 +58,27 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vVd-Sa-P1X">
-                                <rect key="frame" x="209" y="138" width="118" height="30"/>
+                                <rect key="frame" x="203" y="138" width="124" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="updateDatabase"/>
                                 <connections>
                                     <action selector="updateDatabaseListener:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mNb-c0-LLE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="chM-TT-fHz">
+                                <rect key="frame" x="16" y="138" width="140" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Update by Position"/>
+                                <connections>
+                                    <action selector="updateDatabaseByPosition:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oBy-e6-qJw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zM4-DU-bz8">
+                                <rect key="frame" x="16" y="194" width="133" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Update Database by Date"/>
+                                <connections>
+                                    <action selector="updateDatabaseByDate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="net-Du-8YA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -97,12 +113,21 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="2Lk-5K-vpi">
                         <rightBarButtonItems>
+                            <barButtonItem title="editButton" id="UTu-dV-pfa">
+                                <connections>
+                                    <action selector="editBarButtonListener:" destination="aU3-mS-gbC" id="SZs-Ri-kCd"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Refresh" id="D00-ch-fFX">
+                                <connections>
+                                    <action selector="refreshBarButtonListener:" destination="aU3-mS-gbC" id="luj-Cq-im0"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem title="Insert" id="BE8-Ce-epz">
                                 <connections>
                                     <action selector="insetBarButtonListener:" destination="aU3-mS-gbC" id="P9F-Pk-4Ck"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Refresh" id="D00-ch-fFX"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>

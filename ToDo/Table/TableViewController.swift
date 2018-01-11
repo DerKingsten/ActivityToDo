@@ -14,16 +14,28 @@ struct cellData {
     let startTimeText: String!
     let endTimeText: String!
 }
+
 class TableViewController: UITableViewController {
     var arrayOfCellData = [Activity]()
     var activities = ActivityDB.shared.getAllActivities()
     @IBOutlet var activityTableView: UITableView!
-    
     @IBOutlet weak var insertBarButton: UINavigationItem!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //arrayOfCellData = [activities]
+        //arrayOfCellData = [activities
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        self.tableView.isEditing = false
         
+    }
+    @IBAction func editBarButtonListener(_ sender: UIBarButtonItem) {
+        self.tableView.isEditing = !self.tableView.isEditing
+    }
+    
+    @IBAction func refreshBarButtonListener(_ sender: UIBarButtonItem) {
+        ActivityDB.shared.updateAndSortByPosition()
+        activities = ActivityDB.shared.getAllActivities()
+        self.tableView.reloadData()
+    
     }
     @IBAction func insetBarButtonListener(_ sender: UIBarButtonItem) {
         let alert = UIAlertController(title: "Insert User", message: nil, preferredStyle: .alert)
@@ -41,9 +53,15 @@ class TableViewController: UITableViewController {
                 let postion = alert.textFields?[4].text
 
                 else { return }
+            let format = DateFormatter()
+            format.dateFormat = "yyyy-mm-dd"
+            format.timeZone = TimeZone.init(abbreviation: "GMT")
+            let date = format.date(from: dateVal)
             
-            let newAct = Activity(id: 0,activity: activityVal, date: dateVal, startTime: startTimeVal, endTime: endTimeVal, position: postion)
+            let newAct = Activity(id: 0,activity: activityVal, date: date!, startTime: startTimeVal, endTime: endTimeVal, position: postion)
             _ = ActivityDB.shared.addActivity(activity: newAct)
+            self.activities.append(newAct)
+            
         }
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
@@ -63,15 +81,16 @@ class TableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return activities.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-mm-dd"
+        format.timeZone = TimeZone.init(abbreviation: "GMT")
         let cell = Bundle.main.loadNibNamed("ActivityTableViewCell", owner: self, options: nil)?.first as! ActivityTableViewCell
         cell.activityLabel.text! = activities[indexPath.row].getActivity()
-        cell.dateLabel.text! = activities[indexPath.row].getDate()
+        cell.dateLabel.text! = format.string(from: activities[indexPath.row].getDate())
         cell.startTimeLabel.text = activities[indexPath.row].getStartTime()
         cell.endTimeLabel.text = activities[indexPath.row].getEndTime()
     
@@ -80,27 +99,36 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 67
     }
-    
-
-    
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
- 
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+    
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let movedObject = self.activities[sourceIndexPath.row]
+        activities.remove(at: sourceIndexPath.row)
+        activities.insert(movedObject, at: destinationIndexPath.row)
+    }
 
     
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
     
+   
+   
 
     /*
     // Override to support rearranging the table view.

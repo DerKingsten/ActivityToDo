@@ -11,13 +11,13 @@ import Foundation
 class Activity {
     private var id: Int64
     private var activity: String
-    private var date: String
+    private var date: Date
     private var startTime: String
     private var endTime: String
     private var position: String
     
 
-    init(id: Int64, activity: String, date: String, startTime: String, endTime: String, position: String) {
+    init(id: Int64, activity: String, date: Date, startTime: String, endTime: String, position: String) {
         self.id = id
         self.activity = activity
         self.date = date
@@ -40,10 +40,10 @@ class Activity {
         return self.activity
     }
     
-    func setDate(date: String){
+    func setDate(date: Date){
         self.date = date
     }
-    func getDate() -> String{
+    func getDate() -> Date{
         return self.date
     }
     
